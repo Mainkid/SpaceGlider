@@ -12,10 +12,12 @@ namespace CodeBase.Infrastructure
         private readonly SceneLoader _sceneLoader;
         private readonly IGameFactory _gameFactory;
 
-        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader)
+        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, IGameFactory gameFactory)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
+            _gameFactory = gameFactory;
+            Debug.Log(_gameFactory);
         }
 
         public void Enter(string sceneName)

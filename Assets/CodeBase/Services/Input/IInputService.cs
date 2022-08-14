@@ -1,6 +1,8 @@
-﻿namespace CodeBase.Services.Input
+﻿using CodeBase.Infrastructure.Services;
+
+namespace CodeBase.Services.Input
 {
-    public interface IInputService
+    public interface IInputService: IService
     {
         bool isMoveForwardButtonUp();
     }

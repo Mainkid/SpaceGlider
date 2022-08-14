@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CodeBase.Camera;
 using CodeBase.Infrastructure;
+using CodeBase.Infrastructure.Services;
 using CodeBase.Services.Input;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -37,8 +38,7 @@ namespace CodeBase.Hero
         {
             _camera = UnityEngine.Camera.main;
             _rb = GetComponent<Rigidbody2D>();
-            _inputService = Game.InputServiceInstance;
-            //CameraFollow();
+            _inputService = AllServices.Container.Single<IInputService>();
         }
 
        

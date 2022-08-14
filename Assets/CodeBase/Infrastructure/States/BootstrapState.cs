@@ -9,19 +9,23 @@ namespace CodeBase.Infrastructure
     {
         private const string Initial = "InitialScene";
         private readonly GameStateMachine _stateMachine;
+        private readonly AllServices _services;
         
         private SceneLoader _sceneLoader;
 
-        public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader)
+        public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, AllServices allServices)
         {
+            
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
+            _services = allServices;
+            RegisterServices();
         }
         
 
         public void Enter()
         {
-            RegisterServices();
+            
             _sceneLoader.LoadScene(Initial, EnterLoadLevel);
         }
 
@@ -31,8 +35,10 @@ namespace CodeBase.Infrastructure
         }
         private void RegisterServices()
         {
-            Game.InputServiceInstance = new InputService();
-            AllServices.Container.RegisterSingle<IGameFactory>(new GameFactory(AllServices.Container.Single<IAssetProvider>()));
+            _services.RegisterSingle<IAssetProvider>(new AssetProvider());
+            _services.RegisterSingle<IGameFactory>(new GameFactory(AllServices.Container.Single<IAssetProvider>()));
+            _services.RegisterSingle<IInputService>(new InputService());
+            Debug.Log("Registration Finished");
         }
 
         public void Exit()
